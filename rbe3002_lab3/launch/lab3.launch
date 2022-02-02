@@ -1,0 +1,27 @@
+  <launch>
+    
+    
+    
+
+    <!--node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 /map /odom 100" />
+    <arg name="map_file" default="$(find rbe3002_lab3)/maps/simple_map.yaml"/-->
+    
+    <!--node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" /-->
+    <!--node name="rviz2" pkg="rviz" type="rviz" args="-d $(find rbe3002_lab3)/rviz/turtlebot3_gmapping_withconfig.rviz"/-->
+    
+    <!--include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch"/>
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch"/-->
+    <include file="$(find rbe3002_final)/launch/maze_sim.launch"/>
+    
+    <!--gmapping. We don't need mapserver if gmapping is running -->
+    <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch" />
+
+    <!-- AMCL -->
+    <!-- include file="$(find turtlebot3_navigation)/launch/amcl.launch"/ -->
+
+    <node name="path_planner" pkg="rbe3002_lab3" type="path_planner.py" respawn="false" output="screen" />
+    <node name="path_planner_client" pkg="rbe3002_lab3" type="path_planner_client.py" respawn="false" output="screen" />
+    <node name="lab2" pkg="rbe3002_lab3" type="lab2.py" respawn="false" output="screen" />
+    <node name="frontier" pkg="rbe3002_lab3" type="frontier.py" respawn="false" output="screen" />
+
+  </launch>

@@ -1,0 +1,18 @@
+  <launch>
+    <!-- <include file="$(find turtlebot3_bringup)/launch/turtlebot3_model.launch"/> -->
+
+    <!-- Rviz configuration >
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rbe3002_lab3)/rviz/turtlebot3_gmapping_withconfig.rviz"/-->
+
+    <!--gmapping. We don't need mapserver if gmapping is running -->
+    <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch" />
+
+    <!-- AMCL -->
+    <include file="$(find turtlebot3_navigation)/launch/amcl.launch" />
+
+    <node name="path_planner" pkg="rbe3002_lab3" type="path_planner.py" respawn="false" output="screen" />
+    <node name="path_planner_client" pkg="rbe3002_lab3" type="path_planner_client.py" respawn="false" output="screen" />
+    <node name="lab2" pkg="rbe3002_lab3" type="lab2.py" respawn="false" output="screen" />
+    <node name="frontier" pkg="rbe3002_lab3" type="frontier.py" respawn="false" output="screen" />
+
+  </launch>
